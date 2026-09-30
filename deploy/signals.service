@@ -1,0 +1,20 @@
+[Unit]
+Description=Signals pipeline supervisor
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/workspace/signals
+Environment=SIGNALS_ROOT=/workspace/signals
+ExecStart=/workspace/signals/.venv/bin/python /workspace/signals/bin/supervisor.py
+Restart=on-failure
+RestartSec=5
+# TERM goes to the supervisor; it forwards TERM and waits for its own children.
+KillMode=mixed
+TimeoutStopSec=45
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

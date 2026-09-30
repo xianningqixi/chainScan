@@ -1,0 +1,14 @@
+# Deliberately disabled until an explicit, coordinated cutover from nohup.
+# No legacy FOMO listeners or other adapters are managed.
+[services.binance_smy_ws]
+enabled = false
+
+[services.ingest_worker]
+enabled = false
+
+[services.webhook_server]
+enabled = false
+
+# Offline, explicitly invoked one-shot adapter; supervisor whitelist only; still disabled.
+[services.gmgn_adapter]
+enabled = false

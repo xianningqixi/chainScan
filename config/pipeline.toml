@@ -1,0 +1,82 @@
+[filter]
+mcap_min = 30000
+mcap_max = 5000000
+min_buy_usd = 1000
+min_smart = 1
+allowed_chains = ["sol", "bsc", "eth", "base", "arb", "op", "matic", "polygon"]
+allowed_chain_ids = ["56", "1", "8453", "CT_501", "501", "42161", "10"]
+bad_status = ["expired", "invalid", "timeout", "completed", "exitrate", "all_sold", "失效", "全部卖出"]
+watch_buy_multiplier = 2
+dev_close_min_smart = 6
+# pending (retry until window expiry), pass_flagged, or reject.
+mcap_unknown_policy = "pending"
+filter_version = "v5-shadow"
+mcap_band_basis = "now"
+# Calculate corrected valuations, but retain the existing valuation gate.
+mcap_scale_policy = "shadow"
+# Existing v4 gate, independent of the new flag-only quality rule.
+baseline_dev_close_gate = true
+# Frozen notes retain their legacy value; annotations live in filter_flags.
+append_flags_to_notes = false
+
+[filter.l0]
+allowed_status = ["active"]
+ca_format_policy = "flag"
+unknown_status_policy = "flag"
+binance_smart_policy = "flag"
+
+[filter.l1]
+dev_close_policy = "flag"
+dev_close_min_smart = 6
+smart_remove_policy = "flag"
+token_cooldown_policy = "shadow"
+token_cooldown_min = 30
+escalate_smart_delta = 2
+stale_policy = "flag"
+late_flag_min = 15
+max_push_age_min = 120
+chase_policy = "flag"
+chase_flag_pct = 100
+high_tax_policy = "flag"
+low_liq_policy = "flag"
+low_liq_flag_usd = 10000
+min_liq_usd = 0
+dev_rm_liq_policy = "shadow"
+
+[filter.l2]
+score_gate_enabled = false
+min_score = 0
+w_smart_ge4 = 1
+w_smart_ge6 = 1
+w_sm_add = 1
+w_vol_surge = 1
+w_sm_remove = -1
+w_vol_plunge = -1
+w_confluence = 1
+confluence_window_min = 60
+
+[enrich]
+ttl_ok = 1200
+ttl_fail = 300
+timeout = 4
+budget_ms = 6000
+dexscreener_rps = 4.0
+geckoterminal_rps = 0.4
+backoff_base = 1.0 # seconds; doubles on consecutive 429s, capped at 120s
+
+[fomo]
+enabled = true
+timeout = 4
+breaker_cooldown = 1800
+
+[reeval]
+max_evals = 30
+window_min = 120
+# Preserve P1 immediate pending retries; replay can opt into a timed interval.
+pending_retry_s = 0
+price_bucket_base = 1.25
+
+[notify]
+# Status/gain updates are informational and disabled by default.
+push_updates = false
+max_gain_threshold = 100

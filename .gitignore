@@ -1,0 +1,46 @@
+# ---- Secrets (never commit) ----
+*.env
+.env*
+!.env.example
+state/secrets.env
+state/fomo_api_key.env
+cookies.json
+*cookies*.json
+*.pem
+*.key
+
+# ---- Runtime state (all of state/ is generated at runtime) ----
+state/
+inbox/
+outbox/
+logs/
+latest.jsonl
+*.jsonl.gz
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.lock
+*.log
+*.out
+
+# ---- Scratch / working notes / agent run logs ----
+scratch/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# ---- Editors / OS ----
+.idea/
+.vscode/
+*.swp
+.DS_Store
